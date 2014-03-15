@@ -14,7 +14,7 @@ namespace Toucan\core;
 use Toucan\Component\Registre\Registry;
 use Toucan\Component\Dependency\Container;
 use Toucan\Core\Dispatcher;
-use Toucan\Component\Debug\ErrorHandler;
+use Toucan\Component\Debuging\ErrorHandler;
 
 /**
 * @category Toucan
