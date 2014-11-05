@@ -8,6 +8,7 @@ class Response
     protected $content;
     protected $statusText;
     protected $statusCode;
+    protected $version;
     protected $charset = 'UTF-8';
     protected $statusCodeText = array(   '100' => 'CONTINUE',
                                      '101' => 'SWITCHING PROTOCOLS',
@@ -99,7 +100,7 @@ class Response
         if(!array_key_exists('Content-Type',$this->headers)) {
         $this->setContentType('Content-Type', 'text/html; charset=' . $this->charset);
         }
-        header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusCodeText));
+        header(sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText));
 
             foreach ($this->headers as $header => $ch) {
                 header($header.': '.$ch);
