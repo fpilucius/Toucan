@@ -2,16 +2,13 @@
 
 namespace Toucan\Component\Session;
 
-class Session
-{
+class Session {
+
     protected static $isSession;
     protected static $IsSessionRegenerate;
     protected $options;
-    
-    
 
-    public function __construct(array $options = array())
-    {
+    public function __construct($options = array()) {
         //TODO implementer les options session_get_cookie_params();
         // si la session est declare en natif dans web/app.php
         if (session_id()) {
@@ -19,31 +16,27 @@ class Session
         }
     }
 
-    public function start()
-    {
+    public function start() {
         if (self::$isSession) {
             return;
         }
-        
+
         if (!session_id()) {
             session_start();
         }
-        
+
         self::$isSession = true;
     }
 
-    public function set($name, $value)
-    {
+    public function set($name, $value) {
         $_SESSION[$name] = $value;
     }
 
-    public function get($name, $default = null)
-    {
-        return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
+    public function get($name, $default = null) {
+        return array_key_exists($name, $_SESSION) ? $_SESSION[$name] : $default;
     }
 
-    public function delete($name = null)
-    {
+    public function delete($name = null) {
         if ($_SESSION) {
             if ($name != null) {
                 unset($_SESSION[$name]);
@@ -52,31 +45,29 @@ class Session
             }
         }
     }
-    
-    public function getId()
-    {
-        if(!self::$isSession){
+
+    public function getId() {
+        if (!self::$isSession) {
             throw new \Exception('La session n\'est pas démarré pour la lecture de l\'ID');
         }
         return session_id();
     }
 
-    public function regenerate($destroy = false)
-    {
+    public function regenerate($destroy = false) {
         if (self::$isSessionRegenerate) {
             return;
         }
         session_regenerate_id($destroy);
-        
+
         self::$isSessionRegenerate = true;
     }
 
-    public function destroy()
-    {
+    public function destroy() {
         if (session_id()) {
             session_destroy();
         }
     }
 
 }
+
 ?>
